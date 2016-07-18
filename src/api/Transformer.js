@@ -10,7 +10,7 @@ class Transformer {
     pre = (source) => {
         if (!this.root) {
             this.root =  source.opts.sourceRoot;
-            let configSource = FileUtility.toString(this.root + ".doc.gen.json");
+            let configSource = FileUtility.toString(this.root + "/.doc.gen.json");
             this.config = JSON.parse(configSource);
             if (this.config.react) {
                 this.config.react.root = this.root;
