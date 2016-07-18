@@ -1,6 +1,6 @@
 ### Node template
 # Logs
-logs
+/logs
 *.log
 npm-debug.log*
 # IDEA / Webstorm
@@ -17,7 +17,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+/coverage
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -27,12 +27,12 @@ coverage
 
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
-node_modules
+/node_modules
 
 mocha.json
-esdoc
-docs
-__test__
+/esdoc
+/docs
+/__test__
 webpack.config.common.js
 webpack.config.dev.js
 webpack.config.prod.js
@@ -44,3 +44,5 @@ manual
 .travis.yml
 esdoc.json
 src
+!lib
+!dist

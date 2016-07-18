@@ -1,1 +1,1 @@
-export  default require("./api/Transformer");
+module.exports = require("./api/Transformer");
