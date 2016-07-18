@@ -1,10 +1,9 @@
 const fs = require("fs-extra");
-const ReactDocGen = require("react-docgen");
 import FileUtility from "../../util/FileUtility";
 import Validations from "../../util/Validation";
 import Utility from "../../util/Utility";
 
-class ReactTransformer {
+class CopyFiles {
     config;
     file;
     constructor(config){
@@ -12,14 +11,15 @@ class ReactTransformer {
             throw new Error("root configuration is undefined ! ");
         }
         if(!config.sourceFolder ) {
-            throw new Error("sourceFolder undefined under 'react' property in configuration file.");
+            throw new Error("sourceFolder undefined under 'copy' property in configuration file.");
         }
         if (!config.extensions) {
-            throw new Error("extensions undefined under 'react' property in configuration file.");
+            throw new Error("extensions undefined under 'copy' property in configuration file.");
         }
         if(!config.destinationFolder) {
-            throw new Error("destinationFolder undefined under 'react' property in configuration file.");
+            throw new Error("destinationFolder undefined under 'copy' property in configuration file.");
         }
+
         config.sourceFolder = config.root + "/" + config.sourceFolder;
         config.destinationFolder = config.root + "/" + (config.destinationFolder ? config.destinationFolder: "");
         this.config = config;
@@ -29,8 +29,7 @@ class ReactTransformer {
         return this.config;
     }
 
-    transform (fileInformation, source) {
-
+    copy (fileInformation, source) {
         let isOk = fileInformation.filePath.startsWith(this.config.sourceFolder) && ! (fileInformation.filePath.indexOf("index.js") !== -1);
 
         if (!isOk) return ;
@@ -40,19 +39,13 @@ class ReactTransformer {
         }
 
         let newFilePath = fileInformation.path.replace(this.config.sourceFolder,this.config.destinationFolder);
-        let destinationSrc = null;
-        try {
-            destinationSrc = ReactDocGen.parse(source);
-        } catch (e) {
-            console.log(fileInformation.filePath + " conversion error ! Detail : " + e);
-            return ;
-        };
 
         fs.mkdirsSync(newFilePath);
-        newFilePath = newFilePath + "/" + fileInformation.name + ".json";
+        let fileName =  fileInformation.name + "." + (this.config.destinationExtension ? this.config.destinationExtension : fileInformation.extension);
+        newFilePath = newFilePath + "/" + fileName;
         console.log(newFilePath + " created.");
-        fs.outputFileSync(newFilePath, JSON.stringify(destinationSrc));
+        fs.outputFileSync(newFilePath, source);
     }
 }
 
-export default ReactTransformer;
+export default CopyFiles;
