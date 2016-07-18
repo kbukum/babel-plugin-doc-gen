@@ -1,0 +1,28 @@
+{
+  "source": "./src",
+  "destination": "./esdoc",
+  "builtinExternal": true,
+  "title": "Robe React Common",
+  "coverage": true,
+  "includeSource": true,
+  "includes": ["\\.js$"],
+  "access": ["public", "protected", "private"],
+  "autoPrivate": true,
+  "unexportIdentifier": false,
+  "undocumentIdentifier": true,
+  "debug": false,
+  "index": "./README.md",
+  "package": "./package.json",
+  "test": {
+    "type": "mocha",
+    "source": "./__test__"
+  },
+  "manual": {
+    "usage": [ "./manual/api.md"],
+    "changelog": ["./CHANGELOG.md"]
+  },
+  "plugins": [
+    {"name": "esdoc-es7-plugin"}
+  ],
+  "lint": true
+}
