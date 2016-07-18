@@ -1,11 +1,11 @@
 {
   "name": "babel-plugin-doc-gen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React Doc Generator and JSDoc Generator",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha __test__ --recursive --compilers js:babel-core/register",
-    "docs": "./node_modules/.bin/esdoc -c esdoc.json",
+    "docs": "esdoc -c esdoc.json",
     "build": "webpack --config webpack.config.build.js  --progress --profile --colors && babel ./src --out-dir ./lib"
   },
   "keywords": [
@@ -45,6 +45,7 @@
     "eslint-plugin-flowtype": "^2.3.1",
     "eslint-plugin-import": "^1.11.0",
     "file-loader": "^0.9.0",
+    "json-loader": "^0.5.4",
     "mocha": "^2.5.3",
     "webpack": "^1.13.1"
   },
@@ -53,7 +54,9 @@
   },
   "homepage": "https://github.com/kbukum/babel-plugin-doc-gen#readme",
   "dependencies": {
+    "fs": "0.0.2",
     "fs-extra": "^0.30.0",
+    "graceful-fs": "^4.1.4",
     "react-docgen": "^2.9.1"
   },
   "author": "Kamil Bukum <kamilbukum@gmail.com> (oopdev.org)"
