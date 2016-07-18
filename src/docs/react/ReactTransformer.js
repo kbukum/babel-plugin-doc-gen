@@ -5,7 +5,6 @@ import FileUtility from "../../util/FileUtility";
 class ReactTransformer {
     config;
     constructor(config){
-        this.config = config;
         if (!config.root) {
             throw new Error("root configuration is undefined ! ");
         }
@@ -17,11 +16,14 @@ class ReactTransformer {
         }
         config.sourceFolder = config.root + "/" + config.sourceFolder;
         config.destinationFolder = config.root + "/" + (config.destinationFolder ? config.destinationFolder: "");
+        this.config = config;
+        console.log(config);
     }
 
     getConfig(){
         return this.config;
     }
+
     transform (fileInformation, source) {
 
         let isOk = fileInformation.filePath.startsWith(this.config.sourceFolder) && ! (fileInformation.filePath.indexOf("index.js") != -1);
@@ -32,12 +34,14 @@ class ReactTransformer {
             return ;
         }
 
+
         let newFilePath = fileInformation.path.replace(this.config.sourceFolder,this.config.destinationFolder);
 
         let destinationSrc = ReactDocGen.parse(source);
 
         fs.mkdirsSync(newFilePath);
         newFilePath = newFilePath + "/" + fileInformation.name + ".json";
+        console.log(newFilePath + " created.");
         fs.outputFileSync(newFilePath, JSON.stringify(destinationSrc));
 
     }
