@@ -1,7 +1,7 @@
 import fs from "fs-extra";
 
 class FileUtility {
-    getInformation = (filePath: string) => {
+    getInformation (filePath: string) {
         let nOffset = Math.max(0, Math.max(filePath.lastIndexOf('\\'), filePath.lastIndexOf('/')));
         let eOffset = filePath.lastIndexOf('.');
         if (eOffset < 0) {

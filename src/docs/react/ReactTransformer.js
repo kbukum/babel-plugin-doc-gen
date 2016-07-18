@@ -22,7 +22,7 @@ class ReactTransformer {
     getConfig(){
         return this.config;
     }
-    transform = (fileInformation, source) => {
+    transform (fileInformation, source) {
 
         let isOk = fileInformation.filePath.startsWith(this.config.sourceFolder) && ! (fileInformation.filePath.indexOf("index.js") != -1);
 
