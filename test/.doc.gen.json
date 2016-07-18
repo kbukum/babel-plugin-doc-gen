@@ -1,0 +1,8 @@
+{
+  "react" : {
+    "sourceFolder":"test/components",
+    "extensions": ["jsx", "js"],
+    "destinationFolder":"test/docs",
+    "exclude": ["index.js"]
+  }
+}

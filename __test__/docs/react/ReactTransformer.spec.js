@@ -8,25 +8,26 @@ import chai from "chai";
 describe("docs/react/ReactTransformer.js", () => {
     /** @test {docs/react/ReactTransformer#constructor} **/
     it("constructors", () => {
-        let root =  path.resolve(".");
+        let root =  path.resolve(".") + "/test";
         let options = {
-            root: root,
-            sourceFolder : "src/",
-            destinationFolder: "destination/",
+            root: root ,
+            sourceFolder : "components/",
+            destinationFolder: "docs/",
             extensions: []
         }
         let reactTransformer = new ReactTransformer(options);
-        let expectedSourceFolder =  root + "/src/";
+        let expectedSourceFolder =  root + "/components/";
         chai.assert.equal(expectedSourceFolder, reactTransformer.getConfig().sourceFolder);
-        let expectedDestinationFolder = root + "/destination/";
+        let expectedDestinationFolder = root + "/docs/";
         chai.assert.equal(expectedDestinationFolder, reactTransformer.getConfig().destinationFolder);
     });
     /** @test {docs/react/ReactTransformer#constructor} **/
     it("transform", () => {
+        let root =  path.resolve(".") + "/test";
         let options = {
-            root: path.resolve("."),
-            sourceFolder : "src/",
-            destinationFolder: "destination/",
+            root: root,
+            sourceFolder : "components/",
+            destinationFolder: "docs/",
             extensions: ["js"]
         }
         let reactTransformer = new ReactTransformer(options);

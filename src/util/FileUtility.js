@@ -1,4 +1,5 @@
 import fs from "fs-extra";
+import gracefulfs from "graceful-fs";
 
 class FileUtility {
     getInformation (filePath: string) {
@@ -15,9 +16,21 @@ class FileUtility {
         };
     }
 
-    toString(file: string, callback: Function){
+    isExist(file){
+        return gracefulfs.existsSync(file);
+    }
+    createFile(file: string, content: string) {
+        fs.ensureFileSync(file);
+        this.writeFile(file, content);
+    }
+    writeFile(file: string, content: string) {
+        if (content) {
+            fs.outputFileSync(file, content);
+        }
+    }
+    readFile(file: string, callback: Function){
         if(!callback) {
-            return fs.readFileSync(file);
+            return fs.readFileSync(file,"utf-8");
         } else {
             fs.readFile(file, callback);
             return true;

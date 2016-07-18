@@ -1,9 +1,13 @@
 const fs = require("fs-extra");
 const ReactDocGen = require("react-docgen");
 import FileUtility from "../../util/FileUtility";
+import Validations from "../../util/Validation";
+import Utility from "../../util/Utility";
 
 class ReactTransformer {
     config;
+    file;
+    hash;
     constructor(config){
         if (!config.root) {
             throw new Error("root configuration is undefined ! ");
@@ -17,7 +21,21 @@ class ReactTransformer {
         config.sourceFolder = config.root + "/" + config.sourceFolder;
         config.destinationFolder = config.root + "/" + (config.destinationFolder ? config.destinationFolder: "");
         this.config = config;
-        console.log(config);
+        if (!FileUtility.isExist(config.destinationFolder)) {
+            throw new Error(config.destinationFolder + " folder is not found ! ");
+        }
+        if (!config.hashFile) {
+            config.hashFile = ".hash";
+        }
+
+        if (!Validations.startsWith(config.hashFile,"/")) {
+            config.hashFile = config.destinationFolder + "/" + config.hashFile;
+        }
+
+        if (!FileUtility.isExist(config.hashFile)) {
+            FileUtility.createFile(config.hashFile, "{}");
+        }
+        this.hash = JSON.parse(FileUtility.readFile(config.hashFile));
     }
 
     getConfig(){
@@ -30,15 +48,18 @@ class ReactTransformer {
 
         if (!isOk) return ;
 
-        if (this.config.extensions.indexOf(fileInformation.extension) == -1) {
+        if (this.config.extensions.indexOf(fileInformation.extension) === -1) {
+            return ;
+        }
+        let newHash = Utility.hash(source);
+        if( this.hash[fileInformation.filePath]  && this.hash[fileInformation.filePath] === newHash ) {
             return ;
         }
 
-
         let newFilePath = fileInformation.path.replace(this.config.sourceFolder,this.config.destinationFolder);
-
+        let destinationSrc = null;
         try {
-            let destinationSrc = ReactDocGen.parse(source);
+            destinationSrc = ReactDocGen.parse(source);
         } catch (e) {
             console.warn(e);
             return ;
@@ -48,7 +69,8 @@ class ReactTransformer {
         newFilePath = newFilePath + "/" + fileInformation.name + ".json";
         console.log(newFilePath + " created.");
         fs.outputFileSync(newFilePath, JSON.stringify(destinationSrc));
-
+        this.hash[fileInformation.filePath] = newHash;
+        fs.outputFileSync(this.config.hashFile, JSON.stringify(this.hash));
     }
 }
 

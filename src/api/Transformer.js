@@ -7,15 +7,28 @@ class Transformer {
     root;
     config;
     reactTransformer;
-    pre = (source) => {
+    constructor(root, configFilePath){
+        if (root) {
+            if (!configFilePath) {
+                configFilePath = ".doc.gen.json";
+            }
+            this.__init(root , configFilePath);
+        }
+    }
+    __init(root, configFilePath){
         if (!this.root) {
-            this.root =  source.opts.sourceRoot;
-            let configSource = FileUtility.toString(this.root + "/.doc.gen.json");
+            this.root = root;
+            let configSource = FileUtility.readFile(this.root + "/" + configFilePath);
             this.config = JSON.parse(configSource);
             if (this.config.react) {
                 this.config.react.root = this.root;
                 this.reactTransformer = new ReactTransformer(this.config.react);
             }
+        }
+    }
+    pre = (source) => {
+        if (!this.root) {
+            this.__init(source.opts.sourceRoot, ".doc.gen.json");
         }
 
         let fileInformation = FileUtility.getInformation(source.opts.filename);
@@ -26,5 +39,5 @@ class Transformer {
     }
 }
 
-export default new Transformer();
+export default Transformer;
 
