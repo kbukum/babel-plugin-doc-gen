@@ -18,12 +18,13 @@ class ReactTransformer {
         if (!config.extensions) {
             throw new Error("extensions undefined under 'react' property in configuration file.");
         }
+        if(!config.destinationFolder) {
+            throw new Error("destinationFolder undefined under 'react' property in configuration file.");
+        }
         config.sourceFolder = config.root + "/" + config.sourceFolder;
         config.destinationFolder = config.root + "/" + (config.destinationFolder ? config.destinationFolder: "");
         this.config = config;
-        if (!FileUtility.isExist(config.destinationFolder)) {
-            throw new Error(config.destinationFolder + " folder is not found ! ");
-        }
+
         if (!config.hashFile) {
             config.hashFile = ".hash";
         }
@@ -61,7 +62,7 @@ class ReactTransformer {
         try {
             destinationSrc = ReactDocGen.parse(source);
         } catch (e) {
-            console.warn(e);
+            console.log(fileInformation.filePath + " conversion error ! Detail : " + e);
             return ;
         };
 
