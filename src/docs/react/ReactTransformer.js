@@ -37,7 +37,12 @@ class ReactTransformer {
 
         let newFilePath = fileInformation.path.replace(this.config.sourceFolder,this.config.destinationFolder);
 
-        let destinationSrc = ReactDocGen.parse(source);
+        try {
+            let destinationSrc = ReactDocGen.parse(source);
+        } catch (e) {
+            console.warn(e);
+            return ;
+        };
 
         fs.mkdirsSync(newFilePath);
         newFilePath = newFilePath + "/" + fileInformation.name + ".json";

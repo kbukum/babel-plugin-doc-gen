@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-doc-gen",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React Doc Generator and JSDoc Generator",
   "main": "lib/index.js",
   "scripts": {
