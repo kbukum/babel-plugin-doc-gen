@@ -1,10 +1,11 @@
+import path from "path";
 import fs from "fs-extra";
 import gracefulfs from "graceful-fs";
 
 class FileUtility {
     getInformation (filePath: string) {
-        let nOffset = Math.max(0, Math.max(filePath.lastIndexOf('\\'), filePath.lastIndexOf('/')));
-        let eOffset = filePath.lastIndexOf('.');
+        let nOffset = Math.max(0, Math.max(filePath.lastIndexOf("\\"), filePath.lastIndexOf("/")));
+        let eOffset = filePath.lastIndexOf(".");
         if (eOffset < 0) {
             eOffset = filePath.length;
         }
@@ -25,14 +26,14 @@ class FileUtility {
     }
     writeFile(file: string, content: string) {
         if (content) {
-            fs.outputFileSync(file, content);
+            fs.outputFileSync(path.normalize(file), content);
         }
     }
     readFile(file: string, callback: Function){
         if(!callback) {
             return fs.readFileSync(file,"utf-8");
         } else {
-            fs.readFile(file, callback);
+            fs.readFile(path.normalize(file), callback);
             return true;
         }
     }

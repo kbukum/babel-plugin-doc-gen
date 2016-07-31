@@ -1,4 +1,5 @@
 const fs = require("fs-extra");
+import path from "path";
 import FileUtility from "../../util/FileUtility";
 import Validations from "../../util/Validation";
 import Utility from "../../util/Utility";
@@ -44,7 +45,7 @@ class CopyFiles {
         let fileName =  fileInformation.name + "." + (this.config.destinationExtension ? this.config.destinationExtension : fileInformation.extension);
         newFilePath = newFilePath + "/" + fileName;
         console.log(newFilePath + " created.");
-        fs.outputFileSync(newFilePath, source);
+        fs.outputFileSync(path.normalize(newFilePath), source);
     }
 }
 

@@ -1,4 +1,5 @@
 const fs = require("fs-extra");
+import path from "path";
 const ReactDocGen = require("react-docgen");
 import FileUtility from "../../util/FileUtility";
 import Validations from "../../util/Validation";
@@ -51,7 +52,7 @@ class ReactTransformer {
         fs.mkdirsSync(newFilePath);
         newFilePath = newFilePath + "/" + fileInformation.name + ".json";
         console.log(newFilePath + " created.");
-        fs.outputFileSync(newFilePath, JSON.stringify(destinationSrc));
+        fs.outputFileSync(path.normalize(newFilePath), JSON.stringify(destinationSrc));
     }
 }
 
