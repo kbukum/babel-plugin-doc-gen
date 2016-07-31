@@ -1,7 +1,6 @@
 class Visitor {
     Program = (path, file) => {
-        console.log(path);
-        console.log(file);
+
     }
 
     BinaryExpression = () => {
@@ -12,7 +11,7 @@ class Visitor {
 
     }
     Identifier = () => {
-        console.log("Called!");
+       
     }
 }
 
