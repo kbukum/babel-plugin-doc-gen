@@ -17,10 +17,6 @@
     "type": "mocha",
     "source": "./__test__"
   },
-  "manual": {
-    "usage": [ "./manual/api.md"],
-    "changelog": ["./CHANGELOG.md"]
-  },
   "plugins": [
     {"name": "esdoc-es7-plugin"}
   ],
