@@ -1,6 +1,6 @@
 import path from "path";
-import ReactTransformer from "./../../../src/docs/react/ReactTransformer";
-import FileUtility from "../../../src/util/FileUtility";
+import ReactTransformer from "./ReactTransformer";
+import FileUtility from "../../util/FileUtility";
 import chai from "chai";
 
 /** @test {docs/react/ReactTransformer} **/

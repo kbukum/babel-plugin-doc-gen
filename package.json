@@ -1,12 +1,12 @@
 {
   "name": "babel-plugin-doc-gen",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "React Doc Generator and JSDoc Generator",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha __test__ --recursive --compilers js:babel-core/register",
+    "test": "mocha src --recursive  --no-timeouts --compilers js:babel-register",
     "docs": "esdoc -c esdoc.json",
-    "build": "webpack --config webpack.config.build.js  --progress --profile --colors && babel ./src --out-dir ./lib"
+    "build": "webpack --config webpack.config.build.js  --progress --profile --colors && babel ./src --out-dir ./lib  --ignore *.spec.js"
   },
   "keywords": [
     "jsdocs-gen",

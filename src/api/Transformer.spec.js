@@ -1,6 +1,6 @@
 import path from "path";
-import Transformer from "../../src/api/Transformer";
-import FileUtility from "../../src/util/FileUtility";
+import Transformer from "./Transformer";
+import FileUtility from "../util/FileUtility";
 import chai from "chai";
 /** @test {api/Transformer} **/
 

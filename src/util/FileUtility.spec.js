@@ -1,4 +1,4 @@
-import FileUtility from "./../../src/util/FileUtility";
+import FileUtility from "./FileUtility";
 import chai from "chai";
 
 /** @test {util/FileUtility} **/
