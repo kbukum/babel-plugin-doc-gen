@@ -55,5 +55,8 @@ commonSettings.output = {
     libraryTarget: "umd"
 };
 
+commonSettings.node = {
+    fs: "empty"
+}
 
 module.exports = commonSettings;
